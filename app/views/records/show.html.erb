@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Barcode:</strong>
+  <%= @record.barcode %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @record.author %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @record.title %>
+</p>
+
+<p>
+  <strong>Call no:</strong>
+  <%= @record.call_no %>
+</p>
+
+<p>
+  <strong>Sub loc:</strong>
+  <%= @record.sub_loc %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @record.location %>
+</p>
+
+<p>
+  <strong>Copy:</strong>
+  <%= @record.copy %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @record.status %>
+</p>
+
+<%= link_to 'Edit', edit_record_path(@record) %> |
+<%= link_to 'Back', records_path %>

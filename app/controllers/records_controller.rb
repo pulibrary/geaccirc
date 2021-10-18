@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# Controller for viewing and searching records
+#
 class RecordsController < ApplicationController
   include Pagy::Backend
-  before_action :set_record, only: %i[show edit update destroy]
+  before_action :set_record, only: %i[show edit update]
 
   # GET /records or /records.json
   def index
@@ -23,21 +25,16 @@ class RecordsController < ApplicationController
   # POST /records or /records.json
   def create
     @record = Record.new(record_params)
-
-    respond_to do |format|
-      if @record.save
+    if @record.save
+      respond_to do |format|
         format.html { redirect_to @record, notice: 'Record was successfully created.' }
         format.json { render :show, status: :created, location: @record }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
       end
+    else
+      parameter_error
     end
   rescue ActionController::ParameterMissing
-    respond_to do |format|
-      format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: @record.errors, status: :unprocessable_entity }
-    end
+    parameter_error
   end
 
   # PATCH/PUT /records/1 or /records/1.json
@@ -52,13 +49,17 @@ class RecordsController < ApplicationController
       end
     end
   rescue ActionController::ParameterMissing
+    parameter_error
+  end
+
+  private
+
+  def parameter_error
     respond_to do |format|
       format.html { render :edit, status: :unprocessable_entity }
       format.json { render json: @record.errors, status: :unprocessable_entity }
     end
   end
-
-  private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_record

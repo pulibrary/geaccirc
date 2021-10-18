@@ -31,7 +31,7 @@ RSpec.describe '/records', type: :request do
   end
 
   let(:invalid_attributes) do
-    { }
+    {}
   end
 
   describe 'GET /index' do
@@ -113,8 +113,8 @@ RSpec.describe '/records', type: :request do
         record = Record.create! valid_attributes
         patch record_url(record), params: { record: new_attributes }
         record.reload
-        expect(record.author).to eq("New Author")
-        expect(record.title).to eq("New Title")
+        expect(record.author).to eq('New Author')
+        expect(record.title).to eq('New Title')
       end
 
       it 'redirects to the record' do

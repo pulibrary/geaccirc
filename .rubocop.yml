@@ -1,1 +1,21 @@
 require: rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'db/**/*.rb'
+  NewCops: enable
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/**/*'
+
+Metrics/MethodLength:
+  Max: 11
+
+Rails/FilePath:
+  Exclude:
+    - 'config/environments/development.rb'

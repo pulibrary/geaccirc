@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "records/show", type: :view do
+RSpec.describe 'records/show', type: :view do
   before(:each) do
     @record = assign(:record, Record.create!(
-      barcode: "Barcode",
-      author: "Author",
-      title: "Title",
-      call_no: "Call No",
-      sub_loc: "Sub Loc",
-      location: "Location",
-      copy: "Copy",
-      status: "Status"
-    ))
+                                barcode: 'Barcode',
+                                author: 'Author',
+                                title: 'Title',
+                                call_no: 'Call No',
+                                sub_loc: 'Sub Loc',
+                                location: 'Location',
+                                copy: 'Copy',
+                                status: 'Status'
+                              ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/Barcode/)
     expect(rendered).to match(/Author/)

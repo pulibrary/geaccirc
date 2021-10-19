@@ -1,14 +1,16 @@
-# config valid for current version and patch releases of Capistrano
-lock "~> 3.16.0"
+# frozen_string_literal: true
 
-set :application, "geaccirc"
-set :repo_url, "https://github.com/pulibrary/geaccirc.git"
+# config valid for current version and patch releases of Capistrano
+lock '~> 3.16.0'
+
+set :application, 'geaccirc'
+set :repo_url, 'https://github.com/pulibrary/geaccirc.git'
 
 # Default branch is :main
-set :branch, ENV["BRANCH"] || "main"
+set :branch, ENV['BRANCH'] || 'main'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/opt/geaccirc"
+set :deploy_to, '/opt/geaccirc'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

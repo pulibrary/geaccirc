@@ -26,5 +26,6 @@ RSpec.describe 'records/show', type: :view do
     expect(rendered).to match(/Location/)
     expect(rendered).to match(/Copy/)
     expect(rendered).to match(/Status/)
+    expect(rendered).not_to match(/Edit/)
   end
 end

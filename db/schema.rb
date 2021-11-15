@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_15_153403) do
+ActiveRecord::Schema.define(version: 2021_11_01_114251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "music_reserves", force: :cascade do |t|
+    t.string "course_no"
+    t.string "rec_title"
+    t.string "call_no"
+    t.string "composer"
+    t.string "file_name"
+    t.string "file_note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "records", force: :cascade do |t|
     t.string "barcode"

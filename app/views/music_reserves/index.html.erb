@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Music Reserves</h1>
+
+<h2>Search</h2>
+<%= form_tag(music_reserves_path, method: :get) do %>
+  <%= select_tag :field, options_for_select([ "course_no", "rec_title", "call_no", "composer", "file_name", "file_note" ], params.fetch(:field, "rec_title")) %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Course no</th>
+      <th>Rec title</th>
+      <th>Call no</th>
+      <th>Composer</th>
+      <th>File name</th>
+      <th>File note</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @music_reserves.each do |music_reserve| %>
+      <tr>
+        <td><%= music_reserve.course_no %></td>
+        <td><%= music_reserve.rec_title %></td>
+        <td><%= music_reserve.call_no %></td>
+        <td><%= music_reserve.composer %></td>
+        <td><%= music_reserve.file_name %></td>
+        <td><%= music_reserve.file_note %></td>
+        <td><%= link_to 'Show', music_reserve %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%# Note the double equals sign "==" which marks the output as trusted and html safe: %>
+<%== pagy_nav(@pagy) %>

@@ -7,7 +7,15 @@ namespace :music do
   task load_data: :environment do
     CSV.parse(File.open(Rails.root.join('MusicReserves_double_quote.csv'), encoding: 'bom|utf-8'),
               headers: true) do |row|
-      MusicReserve.create(row.to_h.transform_keys(&:underscore))
+      begin
+        MusicReserve.create(row.to_h.transform_keys(&:underscore))
+      rescue CSV::MalformedCSVError => error
+        puts error
+        puts row
+      rescue StandardError => error
+        puts error
+        puts row
+      end
     end
 
     Rails.logger.warn("Created #{MusicReserve.count} Music Reserves")

@@ -3,7 +3,7 @@ version: 2.1
 executors:
   geaccirc-executor:
     docker:
-      - image: circleci/ruby:2.6.6-node-browsers
+      - image: cimg/ruby:2.7.5-browsers
         environment:
           BUNDLER_VERSION: 2.0.1
           BUNDLE_JOBS: 3

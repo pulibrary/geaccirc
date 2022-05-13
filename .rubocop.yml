@@ -15,10 +15,6 @@ Style/MixinUsage:
   Exclude:
     - 'bin/**/*'
 
-Lint/DuplicateBranch:
-  Exclude:
-    - 'lib/tasks/music.rake'
-
 Metrics/MethodLength:
   Max: 11
 

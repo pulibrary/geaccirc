@@ -1,24 +1,39 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repository runs https://geaccirc.princeton.edu/.  There is no staging server as this application is utilized intermittently by staff only.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+  * Bundler 2.2.27
+  * Ruby 2.7.5
 
-* System dependencies
+## Deployment
 
-* Configuration
+  This application is deployed via capistrano. Locally for example `cap production deploy` or `BRANCH=name cap production deploy`
 
-* Database creation
+## Local set up
 
-* Database initialization
+  1. Bundle install
 
-* How to run the test suite
+     ```
+     bundle install
+     ```
+  1. create the database
 
-* Services (job queues, cache servers, search engines, etc.)
+     ```
+     bundle exec rake db:create
+     bundle exec rake db:migrate
+     ```
+  1. load the database (must be on VPN)'
 
-* Deployment instructions
+     ```
+     scp  deploy@geaccirc1.princeton.edu:circ_updated.txt .
+     bundle exec rake db:seed
+     ```
+## Run the tests
 
-* ...
+  The test are run via rspec:
+
+```
+bundle exec rspec
+```

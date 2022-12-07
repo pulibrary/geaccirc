@@ -3,8 +3,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use postgres as the database for Active Record
@@ -62,6 +60,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
+  gem 'rspec_junit_formatter', require: false
   # gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper'

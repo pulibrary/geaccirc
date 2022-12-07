@@ -5,6 +5,7 @@ AllCops:
   
   Exclude:
     - 'db/**/*.rb'
+    - 'vendor/**/*'
   NewCops: enable
 
 Metrics/BlockLength:

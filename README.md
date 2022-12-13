@@ -5,7 +5,7 @@ This repository runs https://geaccirc.princeton.edu/.  There is no staging serve
 ## Requirements
 
   * Bundler 2.2.27
-  * Ruby 2.7.6
+  * Ruby 3.1.2
 
 ## Deployment
 

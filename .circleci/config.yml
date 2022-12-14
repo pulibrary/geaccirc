@@ -13,9 +13,8 @@ jobs:
       - image: 'cimg/ruby:<< parameters.ruby-version >>-browsers'
     steps:
       - checkout
-      - ruby/install-deps:
-        key: gems-v1-<< parameters.ruby-version >>
-  checking:
+      - ruby/install-deps
+  rubocop:
     docker:
       - image: 'cimg/ruby:3.1.2'
     steps:
@@ -46,8 +45,7 @@ jobs:
     parallelism: 3
     steps:
       - checkout
-      - ruby/install-deps:
-        key: gems-v1-<< parameters.ruby-version >>
+      - ruby/install-deps
       - run:
           command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
           name: Wait for DB
@@ -64,7 +62,7 @@ workflows:
           matrix:
             parameters:
               ruby-version: ["2.7.6", "3.1.2"]
-      - checking
+      - rubocop
       - test:
           requires:
             - build-v<< matrix.ruby-version >>

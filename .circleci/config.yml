@@ -1,128 +1,71 @@
 ---
 version: 2.1
-executors:
-  geaccirc-executor:
-    docker:
-      - image: cimg/ruby:2.7.5-browsers
-        environment:
-          BUNDLER_VERSION: 2.0.1
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
-          BUNDLE_PATH: vendor/bundle
-          PGHOST: 127.0.0.1
-          PGUSER: geaccirc
-          RAILS_ENV: test
-      - image: postgres:10
-        environment:
-          POSTGRES_USER: geaccirc
-          POSTGRES_DB: geaccirc_test
-          POSTGRES_HOST_AUTH_METHOD: trust
-    working_directory: ~/project
-
-commands:
-  setup-bundler:
-    description: "Install correct version of bundler and load from cache or bundle install"
-    steps:
-      - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
-
-      # Which version of bundler?
-      - run:
-          name: Which bundler?
-          command: bundle -v
-
-      # Which version of ruby?
-      - run:
-          name: Which ruby?
-          command: ruby -v
-
-      # Restore bundle cache
-      - restore_cache:
-          keys:
-            - geaccirc-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - geaccirc-bundle-v2-
-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-
-      # Store bundle cache
-      - save_cache:
-          key: geaccirc-bundle-v2-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
+orbs:
+  ruby: circleci/ruby@2.0.0
 jobs:
   build:
-    executor: geaccirc-executor
+    parameters:
+      ruby-version:
+        description: "Ruby version"
+        default: "2.7.6"
+        type: "string"
+    docker:
+      - image: 'cimg/ruby:<< parameters.ruby-version >>-browsers'
     steps:
-      - attach_workspace:
-          at: '~/project'
       - checkout
-      - setup-bundler
-
-      # Only necessary if app uses webpacker or yarn in some other way
-      - restore_cache:
-          keys:
-            - geaccirc-yarn-v2-{{ checksum "yarn.lock" }}
-            - geaccirc-yarn-v2-
-
-      - run:
-          name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
-
-      # Store yarn / webpacker cache
-      - save_cache:
-          key: geaccirc-yarn-v2-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      - persist_to_workspace:
-          root: '~/project'
-          paths: '*'
-
-  test:
-    executor: geaccirc-executor
+      - ruby/install-deps
+  rubocop:
+    docker:
+      - image: 'cimg/ruby:3.1.2'
     steps:
-      - attach_workspace:
-          at: '~/project'
-      - setup-bundler
-
-      # ensure we have psql which we need for db:schema:load
-      - run: sudo apt-get update --allow-releaseinfo-change
-      - run: sudo apt-get install -y postgresql-client || true
-
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
+  test:
+    parameters:
+      ruby-version:
+        description: "Ruby version"
+        default: "2.7.6"
+        type: "string"
+    docker:
+      - image: 'cimg/ruby:<< parameters.ruby-version >>-browsers'
+      - environment:
+          POSTGRES_DB: geaccirc_test
+          POSTGRES_USER: geaccirc
+          POSTGRES_HOST_AUTH_METHOD: trust
+        image: 'cimg/postgres:10.22'
+    environment:
+      BUNDLE_JOBS: '3'
+      BUNDLE_RETRY: '3'
+      PGHOST: 127.0.0.1
+      PGUSER: geaccirc
+      RAILS_ENV: test
+    parallelism: 3
+    steps:
+      - checkout
+      - ruby/install-deps
       - run:
+          command: 'dockerize -wait tcp://localhost:5432 -timeout 1m'
           name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
       - run:
+          command: 'bundle exec rails db:schema:load --trace'
           name: Database setup
-          command: |
-            bin/rails db:create
-            bin/rails db:schema:load
-
-      - run:
-          name: Run Rspec
-          command: bundle exec rspec spec
-
-
-      # Save test results for timing analysis
-      - store_test_results:
-          path: test_results
-
-      - persist_to_workspace:
-          root: '~/project'
-          paths: '*'
-
+      - ruby/rspec-test:
+          include: spec/**/*_spec.rb
 workflows:
-  build_accept:
+  build_and_test:
     jobs:
-      - build
+      - build:
+          name: build-v<< matrix.ruby-version >>
+          matrix:
+            parameters:
+              ruby-version: ["2.7.6", "3.1.2"]
+      - rubocop
       - test:
-         requires:
-          - build
+          requires:
+            - build-v<< matrix.ruby-version >>
+          matrix:
+            parameters:
+              ruby-version: ["2.7.6", "3.1.2"]

@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  record:
+    created: "Record was successfully created."
+    updated: "Record was successfully updated."

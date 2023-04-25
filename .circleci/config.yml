@@ -7,7 +7,7 @@ jobs:
     parameters:
       ruby-version:
         description: "Ruby version"
-        default: "2.7.6"
+        default: "3.1.2"
         type: "string"
     docker:
       - image: 'cimg/ruby:<< parameters.ruby-version >>-browsers'
@@ -27,7 +27,7 @@ jobs:
     parameters:
       ruby-version:
         description: "Ruby version"
-        default: "2.7.6"
+        default: "3.1.2"
         type: "string"
     docker:
       - image: 'cimg/ruby:<< parameters.ruby-version >>-browsers'
@@ -61,11 +61,11 @@ workflows:
           name: build-v<< matrix.ruby-version >>
           matrix:
             parameters:
-              ruby-version: ["2.7.6", "3.1.2"]
+              ruby-version: ["3.1.2"]
       - rubocop
       - test:
           requires:
             - build-v<< matrix.ruby-version >>
           matrix:
             parameters:
-              ruby-version: ["2.7.6", "3.1.2"]
+              ruby-version: ["3.1.2"]

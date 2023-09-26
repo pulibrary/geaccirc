@@ -290,6 +290,7 @@ PLATFORMS
   arm64-darwin-22
   x86_64-darwin-18
   x86_64-darwin-19
+  x86_64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
@@ -318,4 +319,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.3.7
+   2.4.19

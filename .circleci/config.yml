@@ -1,5 +1,6 @@
 ---
 version: 2.1
+commands:
  install_dependencies:
     steps:
       - run: gem install bundler -v '2.4.19'

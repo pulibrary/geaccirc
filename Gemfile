@@ -8,7 +8,7 @@ gem 'rails', '~> 7.0'
 # Use postgres as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 4.3'
+gem 'puma'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 
@@ -45,7 +45,9 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bcrypt_pbkdf'
   gem 'capistrano-passenger'
+  gem 'ed25519'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console'
@@ -67,4 +69,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'brakeman', '~> 5.4'
+gem 'brakeman'

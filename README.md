@@ -1,6 +1,6 @@
 # README
 
-This repository runs https://geaccirc.princeton.edu/.  There is no staging server as this application is utilized intermittently by staff only.
+This repository runs https://geaccirc.princeton.edu/ and https://geaccirc-staging.princeton.edu/. The staging environment is only available on VPN.
 
 ## Requirements
 

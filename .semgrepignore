@@ -1,0 +1,19 @@
+# Common large paths
+node_modules/
+vendor/
+*.min.js
+spec/
+
+# Semgrep rules folder
+.semgrep
+
+# Semgrep-action log folder
+.semgrep_logs/
+
+# Tickets to remediate these rules and remove from this list
+config/
+# https://github.com/pulibrary/geaccirc/issues/62
+app/views/
+# https://github.com/pulibrary/geaccirc/issues/63
+app/controllers/
+# https://github.com/pulibrary/geaccirc/issues/64

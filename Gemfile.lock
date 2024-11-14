@@ -129,7 +129,7 @@ GEM
     ffi (1.17.0-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    health-monitor-rails (12.3.0)
+    health-monitor-rails (12.4.0)
       railties (>= 6.1)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
@@ -339,7 +339,7 @@ DEPENDENCIES
   capistrano-rails
   capybara
   coffee-rails (~> 4.2)
-  health-monitor-rails
+  health-monitor-rails (= 12.4.0)
   jbuilder
   listen
   pagy (~> 3.5)

@@ -5,7 +5,7 @@ This repository runs https://geaccirc.princeton.edu/ and https://geaccirc-stagin
 ## Requirements
 
   * Bundler 2.4.5
-  * Ruby 3.1.3
+  * Ruby 3.3.6
   * Rails 7.1.4
 
 ## Deployment
@@ -28,7 +28,7 @@ This repository runs https://geaccirc.princeton.edu/ and https://geaccirc-stagin
   1. load the database (must be on VPN)'
 
      ```
-     scp  deploy@geaccirc1.princeton.edu:circ_updated.txt .
+     scp  deploy@geaccirc2.princeton.edu:circ_updated.txt .
      bundle exec rake db:seed
      ```
 ## Run the tests

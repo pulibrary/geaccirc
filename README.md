@@ -6,7 +6,7 @@ This repository runs https://geaccirc.princeton.edu/ and https://geaccirc-stagin
 
   * Bundler 2.4.5
   * Ruby 3.3.6
-  * Rails 7.1.4
+  * Rails 7.2.2
 
 ## Deployment
 

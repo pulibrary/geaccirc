@@ -2,6 +2,10 @@
 
 This repository runs https://geaccirc.princeton.edu/ and https://geaccirc-staging.princeton.edu/. The staging environment is only available on VPN.
 
+## Status
+
+This repository has been deprecated as of 1/17/2025. Data has been archived for review in PUL's share google drive. 
+
 ## Requirements
 
   * Bundler 2.4.5
